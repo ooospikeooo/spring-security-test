@@ -14,7 +14,6 @@
 
 	<variable name="LOG_PATH" value="${CUSTOM_LOG_PATH}" />
 
-
 	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
 			<charset>UTF-8</charset>
