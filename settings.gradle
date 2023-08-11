@@ -1,0 +1,3 @@
+rootProject.name = 'spring-security-test'
+include 'custom-form-login'
+

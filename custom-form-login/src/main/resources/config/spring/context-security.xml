@@ -1,0 +1,32 @@
+<b:beans xmlns="http://www.springframework.org/schema/security"
+         xmlns:b="http://www.springframework.org/schema/beans"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/security https://www.springframework.org/schema/security/spring-security.xsd">
+
+    <http request-matcher="ant">
+        <csrf disabled="true"/>
+
+        <intercept-url pattern="/admin/**" access="ROLE_ADMIN"/>
+        <intercept-url pattern="/login" access="permitAll()"/>
+        <intercept-url pattern="/**" access="isAuthenticated()"/>
+
+        <form-login
+                username-parameter="loginid"
+                password-parameter="loginpwd"
+                login-page="/login"
+                login-processing-url="/loginProcess"
+                default-target-url="/hello" />
+    </http>
+
+    <b:bean id="passwordEncoder"
+            class="org.springframework.security.crypto.password.NoOpPasswordEncoder" factory-method="getInstance"/>
+
+    <authentication-manager>
+        <authentication-provider>
+            <user-service>
+                <user name="user" password="1234" authorities="ROLE_USER" />
+            </user-service>
+        </authentication-provider>
+    </authentication-manager>
+</b:beans>
