@@ -9,6 +9,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/custom-form-login" />
+            <option value="$PROJECT_DIR$/user-details-service-with-db" />
           </set>
         </option>
       </GradleProjectSettings>

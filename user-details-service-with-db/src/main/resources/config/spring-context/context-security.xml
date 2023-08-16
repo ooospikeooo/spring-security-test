@@ -17,16 +17,24 @@
                 login-page="/login"
                 login-processing-url="/loginProcess"
                 default-target-url="/hello" />
+
+        <logout
+            logout-success-url="/hello"
+            delete-cookies="JSESSIONID"/>
     </http>
 
     <b:bean id="passwordEncoder"
             class="org.springframework.security.crypto.password.NoOpPasswordEncoder" factory-method="getInstance"/>
 
     <authentication-manager>
-        <authentication-provider>
-            <user-service>
-                <user name="user" password="1234" authorities="ROLE_ADMIN" />
-            </user-service>
-        </authentication-provider>
+        <authentication-provider user-service-ref="customJdbcDaoImpl"/>
     </authentication-manager>
+
+    <b:bean id="customJdbcDaoImpl" class="net.jw.CustomJdbcDaoImpl">
+        <b:property name="dataSource" ref="dataSource"/>
+        <b:property name="rolePrefix" value="" />
+        <b:property name="usersByUsernameQuery" value="SELECT USER_ID, USER_LOGIN_ID, USER_PWD, REC_ST, USER_NM FROM JCMS_USER WHERE USER_LOGIN_ID = ? AND USER_ST='1' AND DEL_DT IS NULL"  />
+        <b:property name="authoritiesByUsernameQuery" value="SELECT B.USER_LOGIN_ID, ROLE_AUTH FROM JCMS_USER_ROLE A, JCMS_USER B WHERE B.USER_LOGIN_ID = ? AND A.USER_ID = B.USER_ID AND USER_ST='1' AND DEL_DT IS NULL" />
+        <b:property name="enableGroups" value="false"/>
+    </b:bean>
 </b:beans>
