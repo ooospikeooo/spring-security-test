@@ -1,0 +1,45 @@
+<b:beans xmlns="http://www.springframework.org/schema/security"
+         xmlns:b="http://www.springframework.org/schema/beans"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/security https://www.springframework.org/schema/security/spring-security.xsd">
+
+    <http request-matcher="ant">
+        <csrf disabled="true"/>
+
+        <intercept-url pattern="/admin/**" access="ROLE_ADMIN"/>
+        <intercept-url pattern="/login" access="permitAll()"/>
+        <intercept-url pattern="/**" access="isAuthenticated()"/>
+
+        <form-login
+                username-parameter="loginid"
+                password-parameter="loginpwd"
+                login-page="/login"
+                login-processing-url="/loginProcess"
+                default-target-url="/hello"
+                authentication-success-handler-ref="customAuthenticationSuccessHandler"
+                authentication-failure-handler-ref="customAuthenticationFailureHandler" />
+
+        <logout
+            logout-success-url="/hello"
+            delete-cookies="JSESSIONID"/>
+    </http>
+
+    <b:bean id="customAuthenticationSuccessHandler" class="net.jw.CustomAuthenticationSuccessHandler"/>
+    <b:bean id="customAuthenticationFailureHandler" class="net.jw.CustomAuthenticationFailureHandler"/>
+
+    <b:bean id="passwordEncoder"
+            class="org.springframework.security.crypto.password.NoOpPasswordEncoder" factory-method="getInstance"/>
+
+    <authentication-manager>
+        <authentication-provider user-service-ref="customJdbcDaoImpl"/>
+    </authentication-manager>
+
+    <b:bean id="customJdbcDaoImpl" class="net.jw.CustomJdbcDaoImpl">
+        <b:property name="dataSource" ref="dataSource"/>
+        <b:property name="rolePrefix" value="" />
+        <b:property name="usersByUsernameQuery" value="SELECT USER_ID, USER_LOGIN_ID, USER_PWD, USER_NM, LOGIN_CNT FROM JCMS_USER WHERE USER_LOGIN_ID = ? AND USER_ST='1' AND DEL_DT IS NULL"  />
+        <b:property name="authoritiesByUsernameQuery" value="SELECT B.USER_LOGIN_ID, ROLE_AUTH FROM JCMS_USER_ROLE A, JCMS_USER B WHERE B.USER_LOGIN_ID = ? AND A.USER_ID = B.USER_ID AND USER_ST='1' AND DEL_DT IS NULL" />
+        <b:property name="enableGroups" value="false"/>
+    </b:bean>
+</b:beans>
