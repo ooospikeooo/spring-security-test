@@ -2,4 +2,5 @@ rootProject.name = 'spring-security-test'
 include 'custom-form-login'
 include 'user-details-service-with-db'
 include 'authentication-handler'
+include 'encrypt-password'
 
