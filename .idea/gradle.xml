@@ -14,6 +14,7 @@
             <option value="$PROJECT_DIR$/03-authentication-handler" />
             <option value="$PROJECT_DIR$/04-encrypt-password" />
             <option value="$PROJECT_DIR$/05-requestmap-from-db" />
+            <option value="$PROJECT_DIR$/06-hierarchical" />
           </set>
         </option>
       </GradleProjectSettings>

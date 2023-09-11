@@ -10,8 +10,6 @@ class ApplicationStartingListener implements ApplicationListener<ContextRefreshe
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
-        DefaultWebSecurityExpressionHandler handler = contextRefreshedEvent.getApplicationContext().getBean(DefaultWebSecurityExpressionHandler.class);
-
         System.out.println("onApplicationEvent");
     }
 }

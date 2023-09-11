@@ -21,7 +21,7 @@
                 authentication-failure-handler-ref="customAuthenticationFailureHandler" />
         <anonymous granted-authority="ROLE_UNAUTHENTICATED" />
         <logout
-            logout-success-url="/hello"
+            logout-success-url="/login"
             delete-cookies="JSESSIONID"/>
 
         <custom-filter before="FILTER_SECURITY_INTERCEPTOR" ref="filterSecurityInterceptor"/>
@@ -68,7 +68,7 @@
         <b:constructor-arg>
             <b:list>
                 <b:bean class="org.springframework.security.web.access.expression.WebExpressionVoter">
-                    <b:property name="expressionHandler" ref="webExpressionHandler" />
+                    <b:property name="expressionHandler" ref="webExpressionHandler"/>
                 </b:bean>
             </b:list>
         </b:constructor-arg>
@@ -105,5 +105,20 @@
 
     <b:bean id="webExpressionHandler" class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler">
         <b:property name="defaultRolePrefix" value=""/>
+        <b:property name="roleHierarchy" ref="roleHierarchy"/>
+    </b:bean>
+
+
+    <b:bean id="roleHierarchyVoter" class="org.springframework.security.access.vote.RoleHierarchyVoter">
+        <b:constructor-arg ref="roleHierarchy"/>
+    </b:bean>
+
+    <b:bean id="roleHierarchy" class="org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl">
+        <b:property name="hierarchy">
+            <b:value>
+                ROLE_SYSTEM > ROLE_USER
+                ROLE_USER > ROLE_UNAUTHENTICATED
+            </b:value>
+        </b:property>
     </b:bean>
 </b:beans>

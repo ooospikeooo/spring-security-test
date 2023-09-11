@@ -4,4 +4,5 @@ include '02-user-details-service-with-db'
 include '03-authentication-handler'
 include '04-encrypt-password'
 include '05-requestmap-from-db'
+include '06-hierarchical'
 
