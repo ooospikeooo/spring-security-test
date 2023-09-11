@@ -9,10 +9,11 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/authentication-handler" />
-            <option value="$PROJECT_DIR$/custom-form-login" />
-            <option value="$PROJECT_DIR$/encrypt-password" />
-            <option value="$PROJECT_DIR$/user-details-service-with-db" />
+            <option value="$PROJECT_DIR$/01-custom-form-login" />
+            <option value="$PROJECT_DIR$/02-user-details-service-with-db" />
+            <option value="$PROJECT_DIR$/03-authentication-handler" />
+            <option value="$PROJECT_DIR$/04-encrypt-password" />
+            <option value="$PROJECT_DIR$/05-requestmap-from-db" />
           </set>
         </option>
       </GradleProjectSettings>
