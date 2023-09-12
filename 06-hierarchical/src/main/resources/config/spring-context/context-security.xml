@@ -19,7 +19,9 @@
                 default-target-url="/hello"
                 authentication-success-handler-ref="customAuthenticationSuccessHandler"
                 authentication-failure-handler-ref="customAuthenticationFailureHandler" />
+
         <anonymous granted-authority="ROLE_UNAUTHENTICATED" />
+
         <logout
             logout-success-url="/login"
             delete-cookies="JSESSIONID"/>
