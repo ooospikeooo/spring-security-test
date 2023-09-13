@@ -1,0 +1,21 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+                http://www.springframework.org/schema/beans     http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
+        <constructor-arg ref="hikariConfig" />
+    </bean>
+
+    <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+        <property name="idleTimeout" value="30000"/>
+        <property name="connectionTimeout" value="3000"/>
+        <property name="maxLifetime" value="400000" />
+        <property name="maximumPoolSize" value="10" />
+        <property name="minimumIdle" value="20" />
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/security_test" />
+        <property name="username" value="root" />
+        <property name="password" value="jin1234" />
+    </bean>
+</beans>

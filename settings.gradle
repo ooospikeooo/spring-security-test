@@ -5,4 +5,5 @@ include '03-authentication-handler'
 include '04-encrypt-password'
 include '05-requestmap-from-db'
 include '06-hierarchical'
+include '07-concurrent-session-filter'
 
