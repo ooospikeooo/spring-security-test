@@ -8,7 +8,13 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Controller
@@ -43,14 +49,33 @@ public class HelloController {
     @RequestMapping(value = "/public/sessionList", method = RequestMethod.GET)
     public String sessionList(Model model) {
 
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+
+        Map<String, HttpSession> sessionMap = SessionListener.getSessionMap();
+
         List<UserSession> userSessions = registry.getAllPrincipals().stream()
                 .map(p -> UserSession.builder()
                         .username(((UserDetailsImpl)p).getUsername())
                         .sessions(registry.getAllSessions(p,false)
-                                .stream().map(si ->SessionInfo.builder()
-                                        .lastRequest(si.getLastRequest())
-                                        .sessionId(si.getSessionId())
-                                        .build()
+                                .stream().map(si -> {
+
+                                    Date creationTime = null;
+                                    Date lastAccessedTime = null;
+
+                                    HttpSession session = sessionMap.get(si.getSessionId());
+
+                                    if(null!=session) {
+                                        creationTime = new Date(session.getCreationTime());
+                                        lastAccessedTime = new Date(session.getLastAccessedTime());
+                                    }
+
+                                    return SessionInfo.builder()
+                                                    .lastRequest(si.getLastRequest())
+                                                    .sessionId(si.getSessionId())
+                                                    .sessionCreationTime(creationTime)
+                                                    .sessionLastAccessedTime(lastAccessedTime)
+                                                    .build();
+                                        }
                                 ).collect(Collectors.toList()))
                         .build())
                 .collect(Collectors.toList());

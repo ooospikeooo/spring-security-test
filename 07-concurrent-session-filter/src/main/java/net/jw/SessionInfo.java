@@ -18,4 +18,7 @@ public class SessionInfo {
     private Principal principal;
     private Date lastRequest;
     private boolean expired;
+
+    private Date sessionCreationTime;
+    private Date sessionLastAccessedTime;
 }

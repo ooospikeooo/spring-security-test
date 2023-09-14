@@ -37,8 +37,14 @@
         <param-value>classpath*:/config/spring-context/context-*.xml</param-value>
     </context-param>
 
+
+
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <listener>
+        <listener-class>net.jw.SessionListener</listener-class>
     </listener>
 
     <listener>

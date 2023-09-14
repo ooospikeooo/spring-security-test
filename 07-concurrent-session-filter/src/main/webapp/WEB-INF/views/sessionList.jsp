@@ -11,6 +11,8 @@
         <th>유저</th>
         <th>sessionId</th>
         <th>마지막 요청 시간</th>
+        <th>session craetion time</th>
+        <th>session last accessed time</th>
     </tr>
     <c:forEach var="item" items="${sessionList}">
         <c:forEach var="session" items="${item.sessions}">
@@ -18,10 +20,12 @@
             <td>${item.username}</td>
             <td>${session.sessionId}</td>
             <td>${session.lastRequest}</td>
+            <td>${session.sessionCreationTime}</td>
+            <td>${session.sessionLastAccessedTime}</td>
         </tr>
         </c:forEach>
     </c:forEach>
-</table>>
+</table>
 </body>
 
 </html>
