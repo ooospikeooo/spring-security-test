@@ -7,12 +7,14 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -44,6 +46,16 @@ public class HelloController {
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(ModelMap model) {
         return "login";
+    }
+
+    @RequestMapping(value="/public/test.json", method=RequestMethod.POST)
+    @ResponseBody
+    public String jsontest(HttpServletRequest request) {
+        Map<String, Object> result = new HashMap<String, Object>();
+
+        result.put("result", "success");
+
+        return "success";
     }
 
     @RequestMapping(value = "/public/sessionList", method = RequestMethod.GET)

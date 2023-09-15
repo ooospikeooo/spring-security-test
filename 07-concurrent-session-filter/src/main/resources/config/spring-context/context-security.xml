@@ -5,6 +5,8 @@
 						http://www.springframework.org/schema/security https://www.springframework.org/schema/security/spring-security.xsd">
 
     <http pattern="/images/**" request-matcher="ant" security="none"/>
+<!--    <http pattern="/public/sessionList" request-matcher="ant" security="none"/>-->
+<!--    <http pattern="/public/test.json" request-matcher="ant" security="none"/>-->
 
     <http request-matcher="ant" use-expressions="false">
         <csrf disabled="true"/>
